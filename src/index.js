@@ -19,6 +19,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
     	<div>
+    	{/* add switch to specify what route to use expolicitly */}
     	  <Switch>
     	  	{/* bring in route for postsNew component */}
     		<Route path="/posts/new" component={PostsNew} />
