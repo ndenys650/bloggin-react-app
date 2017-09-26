@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 // reduxForm handles the state and validation of our form
 
@@ -7,8 +8,10 @@ class PostsNew extends Component {
 	// field object contains event handlers we need to wire up to jsx we need to return
 	// removing specific render field to make input tag dynamic
 	renderField(field) {
+		const { meta: { touched, error } } = field;
+		const className = `form-group ${touched && error ? 'has-danger' : ''}`;
 		return (
-			<div className="form-group">
+			<div className={className}>
 			{/* field.label taken from form makes the title specific */}
 			<label>{field.label}</label>
 				<input
@@ -20,8 +23,10 @@ class PostsNew extends Component {
 				/>
 
 				{/* meta.error auto added to field object from validate function below */}
-				{field.meta.error}
-
+				{/* touched mean user has clocked on input entered something and moved away */}
+				<div className="text-help">
+					{ touched ? error : '' }
+				</div>
 			</div>
 		);
 	}
@@ -54,6 +59,7 @@ class PostsNew extends Component {
 				/>
 				{/* handle submission of form */}
 				<button type="submit" className="btn btn-primary">Submit</button>
+				<Link to="/" className="btn btn-danger">Cancel</Link>
 			</form>
 		);
 	}
@@ -74,7 +80,7 @@ function validate(values) {
 	}
 
 	if (!values.content) {
-		errors.content = "Enter som content please";
+		errors.content = "Enter some content please";
 	}
 
 	// if errors is empty, the form is fine to submit
