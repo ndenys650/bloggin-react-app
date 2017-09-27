@@ -34,8 +34,12 @@ class PostsNew extends Component {
 	}
 
 	onSubmit(values) {
+		
 		// call action creator to onsubmit in order to post values to the api
-		this.props.createPost(values);
+		this.props.createPost(values, () => {
+			// after submission route the user back to the index page
+			this.props.history.push('/');
+		});
 	}
 
 	render() {
