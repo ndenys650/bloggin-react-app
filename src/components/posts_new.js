@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions';
 
 // reduxForm handles the state and validation of our form
 
@@ -32,8 +34,8 @@ class PostsNew extends Component {
 	}
 
 	onSubmit(values) {
-		// this === component
-		console.log(values);
+		// call action creator to onsubmit in order to post values to the api
+		this.props.createPost(values);
 	}
 
 	render() {
@@ -95,4 +97,8 @@ export default reduxForm({
 	validate,
 	// 'form' sets unique string to name this form
 	form: 'PostsNewForm'
-})(PostsNew);
+})( // add connect action here
+	connect(null, { createPost })(PostsNew)
+);
+
+
