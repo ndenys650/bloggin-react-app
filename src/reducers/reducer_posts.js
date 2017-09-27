@@ -2,6 +2,7 @@ import _ from 'lodash';
 // Import all posts from API
 import { FETCH_POSTS } from '../actions';
 import { FETCH_POST } from '../actions';
+import { DELETE_POST } from '../actions';
 
 
 // export all POSTS STATE as an Object
@@ -9,6 +10,9 @@ import { FETCH_POST } from '../actions';
 // lodash has built in method that does exactly what we want it to do
 export default function(state = {}, action) {
 	switch (action.type) {
+		case DELETE_POST:
+			return _.omit(state, action.payload);
+
 		case FETCH_POST:
 
 			// if we weren't using ES6 it would look like below

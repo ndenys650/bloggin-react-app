@@ -5,6 +5,7 @@ import axios from 'axios';
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POSTS = 'create_posts';
+export const DELETE_POST = 'delete_post';
 
 // create constant to use instead of coding in full API URL
 const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
@@ -41,5 +42,16 @@ export function fetchPost(id) {
 	return {
 		type: FETCH_POST,
 		payload: request
+	};
+}
+
+// delete post action creator 
+export function deletePost(id, callback) {
+	const request = axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`)
+	.then(() => callback());
+
+	return {
+		type: DELETE_POST,
+		payload: id
 	};
 }
